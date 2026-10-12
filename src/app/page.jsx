@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { getProducts } from "../lib/api";
 import PriceTicker from "../components/PriceTicker";
@@ -41,31 +42,16 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Hero Illustration */}
-        <div className="w-64 h-56 flex-shrink-0 flex items-center justify-center relative">
-          <svg viewBox="0 0 240 200" className="w-full h-full drop-shadow-sm" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Soft background glow */}
-            <ellipse cx="120" cy="180" rx="90" ry="12" fill="#E5E7EB" />
-            {/* Veggies in basket */}
-            {/* Green cabbage/broccoli */}
-            <circle cx="160" cy="90" r="30" fill="#22C55E" />
-            <circle cx="150" cy="80" r="18" fill="#16A34A" />
-            {/* Purple eggplant */}
-            <ellipse cx="65" cy="115" rx="18" ry="24" transform="rotate(-15 65 115)" fill="#A855F7" />
-            {/* Red apple / tomato */}
-            <circle cx="95" cy="100" r="26" fill="#EF4444" />
-            <path d="M95 74 C95 68 100 66 102 62" stroke="#15803D" strokeWidth="3" strokeLinecap="round" />
-            {/* Orange carrot / citrus */}
-            <circle cx="130" cy="115" r="16" fill="#F97316" />
-            <circle cx="180" cy="118" r="18" fill="#FB923C" />
-            {/* Basket */}
-            <path d="M40 120 L200 120 L185 175 L55 175 Z" fill="#92400E" rx="4" />
-            <line x1="55" y1="135" x2="185" y2="135" stroke="#78350F" strokeWidth="3" />
-            <line x1="60" y1="155" x2="180" y2="155" stroke="#78350F" strokeWidth="3" />
-            <line x1="85" y1="120" x2="75" y2="175" stroke="#78350F" strokeWidth="3" />
-            <line x1="120" y1="120" x2="120" y2="175" stroke="#78350F" strokeWidth="3" />
-            <line x1="155" y1="120" x2="165" y2="175" stroke="#78350F" strokeWidth="3" />
-          </svg>
+        {/* Hero Image */}
+        <div className="w-full md:w-auto flex justify-center items-center flex-shrink-0">
+          <Image
+            src="/bazar-hero.png"
+            alt="বাজার দর"
+            width={315}
+            height={263}
+            priority
+            className="w-56 sm:w-72 md:w-80 max-w-full h-auto object-contain"
+          />
         </div>
       </section>
 
