@@ -3,7 +3,6 @@ import Link from "next/link";
 import { getProducts } from "../lib/api";
 import PriceTicker from "../components/PriceTicker";
 import ProductCard from "../components/ProductCard";
-import { FiTrendingUp, FiTrendingDown, FiArrowDown } from "react-icons/fi";
 
 export default async function HomePage() {
   const products = await getProducts();
@@ -35,8 +34,7 @@ export default async function HomePage() {
                 href="#all-products"
                 className="inline-flex items-center gap-2 bg-[#00823e] hover:bg-[#006e34] text-white font-medium px-5 py-2.5 rounded-xl transition shadow-xs text-sm sm:text-base"
               >
-                <span>সব পণ্য দেখুন</span>
-                <FiArrowDown className="w-4 h-4" />
+                সব পণ্য দেখুন
               </a>
             </div>
           </div>
@@ -56,7 +54,7 @@ export default async function HomePage() {
         {priceUpProducts.length > 0 && (
           <section className="space-y-4">
             <div className="flex items-center gap-2">
-              <FiTrendingUp className="text-red-500 text-xl" />
+              <span className="text-red-500 font-bold text-lg">▲</span>
               <h2 className="text-xl font-bold text-gray-900">আজ দাম বেড়েছে</h2>
             </div>
 
@@ -71,7 +69,7 @@ export default async function HomePage() {
         {priceDownProducts.length > 0 && (
           <section className="space-y-4">
             <div className="flex items-center gap-2">
-              <FiTrendingDown className="text-emerald-600 text-xl" />
+              <span className="text-emerald-600 font-bold text-lg">▼</span>
               <h2 className="text-xl font-bold text-gray-900">আজ দাম কমেছে</h2>
             </div>
 

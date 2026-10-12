@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { FiTrendingUp, FiTrendingDown, FiMinus, FiPackage } from "react-icons/fi";
 
 export function toBengali(num) {
   if (num === null || num === undefined) return "";
@@ -29,7 +28,7 @@ export default function ProductCard({ product }) {
     >
       <div className="flex items-center gap-3.5 mb-4">
         <div className="w-12 h-12 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-105 transition">
-          {product.image || product.categoryIcon || <FiPackage className="w-6 h-6 text-gray-400" />}
+          {product.image || product.categoryIcon || "🛒"}
         </div>
         <div>
           <h3 className="font-semibold text-gray-900 text-base group-hover:text-[#00823e] transition leading-tight">
@@ -52,17 +51,17 @@ export default function ProductCard({ product }) {
         <div>
           {isUp && (
             <span className="inline-flex items-center gap-1 text-xs font-semibold text-red-600 bg-red-50 px-2.5 py-1 rounded-full">
-              <FiTrendingUp className="w-3.5 h-3.5" /> {toBengali(product.change.pct)}%
+              <span>▲</span> {toBengali(product.change.pct)}%
             </span>
           )}
           {isDown && (
             <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">
-              <FiTrendingDown className="w-3.5 h-3.5" /> {toBengali(product.change.pct)}%
+              <span>▼</span> {toBengali(product.change.pct)}%
             </span>
           )}
           {!isUp && !isDown && (
             <span className="inline-flex items-center gap-1 text-xs font-semibold text-gray-500 bg-gray-100 px-2.5 py-1 rounded-full">
-              <FiMinus className="w-3 h-3" /> ০.০%
+              <span>—</span> ০.০%
             </span>
           )}
         </div>

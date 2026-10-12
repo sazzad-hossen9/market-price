@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import ProductCard, { toBengali } from "../../../components/ProductCard";
-import { FiSliders, FiPackage } from "react-icons/fi";
 
 export default function CategoryProducts({ initialProducts = [] }) {
   const [sortBy, setSortBy] = useState("default");
@@ -17,9 +16,8 @@ export default function CategoryProducts({ initialProducts = [] }) {
   return (
     <div className="space-y-4">
       <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-xs flex justify-end items-center gap-3">
-        <label htmlFor="sortSelect" className="flex items-center gap-1.5 text-sm text-gray-600 font-medium">
-          <FiSliders className="w-4 h-4 text-gray-500" />
-          <span>সাজান</span>
+        <label htmlFor="sortSelect" className="text-sm text-gray-600 font-medium">
+          সাজান
         </label>
         <select
           id="sortSelect"
@@ -39,7 +37,6 @@ export default function CategoryProducts({ initialProducts = [] }) {
 
       {sortedProducts.length === 0 ? (
         <div className="bg-white rounded-2xl p-12 text-center border border-gray-100">
-          <FiPackage className="w-10 h-10 text-gray-400 mx-auto mb-2" />
           <p className="text-gray-500">কোনো তথ্য পাওয়া যায়নি</p>
         </div>
       ) : (
