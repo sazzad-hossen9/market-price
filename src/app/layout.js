@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Hind_Siliguri } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/Navbar";
@@ -23,7 +24,9 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col bg-[#f5f7f6] text-gray-800">
         <Providers>
           <Toaster position="top-right" />
-          <Navbar />
+          <Suspense fallback={<div className="h-20 bg-white border-b border-gray-200" />}>
+            <Navbar />
+          </Suspense>
           <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
             {children}
           </main>
