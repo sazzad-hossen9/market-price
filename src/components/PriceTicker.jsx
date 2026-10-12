@@ -9,7 +9,7 @@ export default function PriceTicker({ products = [] }) {
   if (!products || products.length === 0) return null;
 
   return (
-    <div className="w-full bg-white border-y border-gray-200 py-2.5 shadow-2xs overflow-hidden mb-6">
+    <div className="w-full bg-white border-y border-gray-200 py-2.5 shadow-2xs overflow-hidden">
       <Marquee pauseOnHover={true} speed={40} gradient={false}>
         {products.map((item) => {
           const isUp = item.change?.dir === "up";

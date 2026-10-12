@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
           <Suspense fallback={<div className="h-20 bg-white border-b border-gray-200" />}>
             <Navbar />
           </Suspense>
-          <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <main className="flex-1 w-full">
             {children}
           </main>
           <Footer />
