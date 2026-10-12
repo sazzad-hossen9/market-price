@@ -38,9 +38,9 @@ export default function Navbar() {
 
   return (
     <header className="w-full bg-white border-b border-gray-200 sticky top-0 z-40">
-      {/* Top Bar */}
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
-        {/* Brand Logo and Title */}
+
         <Link href="/" className="flex items-center gap-3">
           <div className="w-10 h-10 bg-[#00823e] text-white rounded-xl flex items-center justify-center text-xl shadow-sm">
             🛒
@@ -51,11 +51,11 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Auth / User area */}
+
         <div className="relative">
           {session?.user ? (
             <div>
-              {/* User Trigger Button */}
+
               <button
                 type="button"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -78,7 +78,7 @@ export default function Navbar() {
                 <span className="text-xs text-gray-400">▼</span>
               </button>
 
-              {/* Dropdown Menu */}
+
               {dropdownOpen && (
                 <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 py-3 px-4 z-50">
                   <div className="border-b border-gray-100 pb-3 mb-2">
@@ -126,8 +126,6 @@ export default function Navbar() {
           )}
         </div>
       </div>
-
-      {/* Category Navigation Bar */}
       <div className="border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex items-center gap-1 sm:gap-2 overflow-x-auto py-2 scrollbar-none text-sm">
@@ -137,11 +135,10 @@ export default function Navbar() {
                 <Link
                   key={cat.id}
                   href={`/category/${cat.slug}`}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full whitespace-nowrap transition font-medium text-xs sm:text-sm ${
-                    isActive
-                      ? "bg-[#00823e] text-white shadow-sm"
-                      : "text-gray-700 hover:text-[#00823e] hover:bg-gray-50"
-                  }`}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full whitespace-nowrap transition font-medium text-xs sm:text-sm ${isActive
+                    ? "bg-[#00823e] text-white shadow-sm"
+                    : "text-gray-700 hover:text-[#00823e] hover:bg-gray-50"
+                    }`}
                 >
                   <span>{cat.icon}</span>
                   <span>{cat.nameBn}</span>

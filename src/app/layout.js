@@ -21,7 +21,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="bn" data-theme="light" className={`${hindSiliguri.className} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-[#f5f7f6] text-gray-800">
+      <body className="min-h-screen flex flex-col bg-[#f5f7f6] text-gray-800">
         <Providers>
           <Toaster position="top-right" />
           <Suspense fallback={<div className="h-20 bg-white border-b border-gray-200" />}>
