@@ -3,21 +3,18 @@ import Link from "next/link";
 import { getProducts } from "../lib/api";
 import PriceTicker from "../components/PriceTicker";
 import ProductCard from "../components/ProductCard";
+import { FiTrendingUp, FiTrendingDown, FiArrowDown } from "react-icons/fi";
 
-// Home Page
 export default async function HomePage() {
   const products = await getProducts();
 
-  // filter products whose prices went up or down
   const priceUpProducts = products.filter((p) => p.change?.dir === "up");
   const priceDownProducts = products.filter((p) => p.change?.dir === "down");
 
   return (
     <div className="space-y-8">
-      {/* Price Ticker */}
       <PriceTicker products={products} />
 
-      {/* Hero Banner Section */}
       <section className="bg-white rounded-3xl p-6 sm:p-10 border border-gray-100 shadow-xs flex flex-col md:flex-row items-center justify-between gap-8">
         <div className="flex-1 space-y-4">
           <span className="inline-block bg-emerald-50 text-[#00823e] text-xs font-semibold px-3.5 py-1.5 rounded-full">
@@ -37,12 +34,12 @@ export default async function HomePage() {
               href="#all-products"
               className="inline-flex items-center gap-2 bg-[#00823e] hover:bg-[#006e34] text-white font-medium px-5 py-2.5 rounded-xl transition shadow-xs text-sm sm:text-base"
             >
-              সব পণ্য দেখুন
+              <span>সব পণ্য দেখুন</span>
+              <FiArrowDown className="w-4 h-4" />
             </a>
           </div>
         </div>
 
-        {/* Hero Image */}
         <div className="w-full md:w-auto flex justify-center items-center flex-shrink-0">
           <Image
             src="/bazar-hero.png"
@@ -55,11 +52,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Section 1: Price increased today */}
       {priceUpProducts.length > 0 && (
         <section className="space-y-4">
           <div className="flex items-center gap-2">
-            <span className="text-red-500 font-bold text-lg">▲</span>
+            <FiTrendingUp className="text-red-500 text-xl" />
             <h2 className="text-xl font-bold text-gray-900">আজ দাম বেড়েছে</h2>
           </div>
 
@@ -71,11 +67,10 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Section 2: Price decreased today */}
       {priceDownProducts.length > 0 && (
         <section className="space-y-4">
           <div className="flex items-center gap-2">
-            <span className="text-emerald-600 font-bold text-lg">▼</span>
+            <FiTrendingDown className="text-emerald-600 text-xl" />
             <h2 className="text-xl font-bold text-gray-900">আজ দাম কমেছে</h2>
           </div>
 
@@ -87,7 +82,6 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Section 3: All products */}
       <section id="all-products" className="space-y-4 pt-4">
         <div>
           <h2 className="text-xl font-bold text-gray-900">সব পণ্য</h2>

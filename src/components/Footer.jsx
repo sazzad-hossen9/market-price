@@ -1,4 +1,3 @@
-// Footer component
 export default function Footer() {
   return (
     <footer className="w-full bg-white border-t border-gray-200 mt-auto">

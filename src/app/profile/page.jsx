@@ -7,6 +7,7 @@ import { useSession, signOut, updateUser } from "../../lib/auth-client";
 import { Input } from "@heroui/input";
 import { Button } from "@heroui/button";
 import toast from "react-hot-toast";
+import { FiLogOut, FiUser, FiUserX } from "react-icons/fi";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -15,14 +16,12 @@ export default function ProfilePage() {
   const [name, setName] = useState("");
   const [updating, setUpdating] = useState(false);
 
-  // set user name when session is loaded
   useEffect(() => {
     if (session?.user?.name) {
       setName(session.user.name);
     }
   }, [session]);
 
-  // handle sign out
   async function handleSignOut() {
     try {
       await signOut();
@@ -33,7 +32,6 @@ export default function ProfilePage() {
     }
   }
 
-  // handle profile name update
   async function handleUpdateProfile(e) {
     e.preventDefault();
     if (!name.trim()) {
@@ -54,7 +52,6 @@ export default function ProfilePage() {
     }
   }
 
-  // if checking session
   if (isPending) {
     return (
       <div className="py-20 text-center text-gray-500">
@@ -63,10 +60,10 @@ export default function ProfilePage() {
     );
   }
 
-  // if user is not logged in
   if (!session?.user) {
     return (
       <div className="max-w-md mx-auto py-16 text-center bg-white rounded-3xl p-8 border border-gray-100 shadow-xs">
+        <FiUserX className="w-12 h-12 text-gray-400 mx-auto mb-3" />
         <h2 className="text-xl font-bold text-gray-900 mb-2">
           আপনি লগইন করেননি
         </h2>
@@ -85,7 +82,6 @@ export default function ProfilePage() {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6 py-4">
-      {/* Page Title */}
       <div>
         <h1 className="text-2xl font-bold text-gray-900">আমার প্রোফাইল</h1>
         <p className="text-sm text-gray-500 mt-1">
@@ -93,7 +89,6 @@ export default function ProfilePage() {
         </p>
       </div>
 
-      {/* Top Card: User Info and Logout */}
       <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-4 text-center sm:text-left">
           {session.user.image ? (
@@ -104,7 +99,7 @@ export default function ProfilePage() {
             />
           ) : (
             <div className="w-16 h-16 rounded-2xl bg-[#00823e] text-white flex items-center justify-center text-2xl font-bold shadow-xs">
-              {session.user.name ? session.user.name.charAt(0).toUpperCase() : "U"}
+              {session.user.name ? session.user.name.charAt(0).toUpperCase() : <FiUser className="w-8 h-8 text-white" />}
             </div>
           )}
 
@@ -123,11 +118,11 @@ export default function ProfilePage() {
           onClick={handleSignOut}
           className="border border-red-200 hover:border-red-300 text-red-600 hover:bg-red-50 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center gap-1.5"
         >
-          <span>←</span> সাইন আউট
+          <FiLogOut className="w-4 h-4 text-red-600" />
+          <span>সাইন আউট</span>
         </button>
       </div>
 
-      {/* Bottom Card: Update Information Form */}
       <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-xs">
         <h3 className="text-base font-bold text-gray-900 mb-4">তথ্য</h3>
 

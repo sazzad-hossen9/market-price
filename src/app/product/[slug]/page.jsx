@@ -1,15 +1,23 @@
 import Link from "next/link";
 import { getProduct } from "../../../lib/api";
 import { toBengali, getUnitText } from "../../../components/ProductCard";
+import {
+  FiChevronRight,
+  FiTrendingUp,
+  FiTrendingDown,
+  FiMinus,
+  FiBarChart2,
+  FiPackage,
+} from "react-icons/fi";
 
 export default async function ProductDetailsPage({ params }) {
   const { slug } = await params;
   const product = await getProduct(slug);
 
-  // if product not found
   if (!product) {
     return (
       <div className="bg-white rounded-2xl p-16 text-center border border-gray-100 my-8">
+        <FiPackage className="w-12 h-12 text-gray-400 mx-auto mb-3" />
         <h2 className="text-xl font-bold text-gray-800">পণ্যটি খুঁজে পাওয়া যায়নি</h2>
         <p className="text-sm text-gray-500 mt-2">অন্য কোনো পণ্য চেষ্টা করুন।</p>
         <Link
@@ -22,12 +30,10 @@ export default async function ProductDetailsPage({ params }) {
     );
   }
 
-  // calculate difference from yesterday
   const priceDiff = product.today - (product.yesterday || product.today);
   const isUp = product.change?.dir === "up";
   const isDown = product.change?.dir === "down";
 
-  // calculate min, max, average from markets list
   const markets = product.markets || [];
   let minPrice = product.today;
   let maxPrice = product.today;
@@ -48,28 +54,25 @@ export default async function ProductDetailsPage({ params }) {
 
   return (
     <div className="space-y-6">
-      {/* Breadcrumb */}
-      <nav className="flex items-center gap-2 text-xs sm:text-sm text-gray-500">
+      <nav className="flex items-center gap-1.5 text-xs sm:text-sm text-gray-500">
         <Link href="/" className="hover:text-[#00823e]">
           হোম
         </Link>
-        <span>&gt;</span>
+        <FiChevronRight className="w-3.5 h-3.5 text-gray-400" />
         <Link
           href={`/category/${product.category}`}
           className="hover:text-[#00823e]"
         >
           {product.categoryNameBn || product.category}
         </Link>
-        <span>&gt;</span>
+        <FiChevronRight className="w-3.5 h-3.5 text-gray-400" />
         <span className="text-gray-900 font-medium">{product.nameBn}</span>
       </nav>
 
-      {/* Top Header Card */}
       <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-100 shadow-xs flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-        {/* Left: Icon, Name, Category, Yesterday diff */}
         <div className="flex items-center gap-5">
           <div className="w-16 h-16 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center text-3xl flex-shrink-0">
-            {product.image || product.categoryIcon || "🛒"}
+            {product.image || product.categoryIcon || <FiPackage className="w-8 h-8 text-gray-400" />}
           </div>
           <div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 leading-tight">
@@ -81,12 +84,12 @@ export default async function ProductDetailsPage({ params }) {
             <p className="text-xs sm:text-sm text-gray-600 mt-2">
               গতকালকের তুলনায় আজ দাম{" "}
               {priceDiff > 0 ? (
-                <span className="text-red-600 font-semibold">
-                  বেড়েছে · {toBengali(priceDiff)} টাকা
+                <span className="text-red-600 font-semibold inline-flex items-center gap-1">
+                  <FiTrendingUp className="w-3.5 h-3.5" /> বেড়েছে · {toBengali(priceDiff)} টাকা
                 </span>
               ) : priceDiff < 0 ? (
-                <span className="text-emerald-600 font-semibold">
-                  কমেছে · {toBengali(Math.abs(priceDiff))} টাকা
+                <span className="text-emerald-600 font-semibold inline-flex items-center gap-1">
+                  <FiTrendingDown className="w-3.5 h-3.5" /> কমেছে · {toBengali(Math.abs(priceDiff))} টাকা
                 </span>
               ) : (
                 <span className="text-gray-600 font-medium">অপরিবর্তিত রয়েছে</span>
@@ -95,7 +98,6 @@ export default async function ProductDetailsPage({ params }) {
           </div>
         </div>
 
-        {/* Right: Today's Price Box */}
         <div className="bg-gray-50 rounded-2xl p-4 sm:p-5 border border-gray-100 text-center min-w-[150px]">
           <p className="text-xs text-gray-500 font-medium">আজকের দাম</p>
           <p className="text-3xl font-extrabold text-gray-900 mt-0.5">
@@ -107,49 +109,57 @@ export default async function ProductDetailsPage({ params }) {
           <div className="mt-2">
             {isUp && (
               <span className="inline-flex items-center gap-1 text-xs font-semibold text-red-600 bg-red-100/60 px-2.5 py-0.5 rounded-full">
-                <span>▲</span> {toBengali(product.change.pct)}%
+                <FiTrendingUp className="w-3 h-3" />
+                <span>{toBengali(product.change.pct)}%</span>
               </span>
             )}
             {isDown && (
               <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 bg-emerald-100/60 px-2.5 py-0.5 rounded-full">
-                <span>▼</span> {toBengali(product.change.pct)}%
+                <FiTrendingDown className="w-3 h-3" />
+                <span>{toBengali(product.change.pct)}%</span>
               </span>
             )}
             {!isUp && !isDown && (
               <span className="inline-flex items-center gap-1 text-xs font-semibold text-gray-600 bg-gray-200 px-2.5 py-0.5 rounded-full">
-                <span>—</span> ০.০%
+                <FiMinus className="w-3 h-3" />
+                <span>০.০%</span>
               </span>
             )}
           </div>
         </div>
       </div>
 
-      {/* Summary Section: দামের সারসংক্ষেপ */}
       <section className="bg-white rounded-3xl p-6 border border-gray-100 shadow-xs space-y-4">
         <h2 className="text-lg font-bold text-gray-900">দামের সারসংক্ষেপ</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {/* Card 1: Min price */}
           <div className="border border-gray-100 rounded-2xl p-5 bg-gray-50/50">
-            <p className="text-xs text-gray-500 font-medium">সর্বনিম্ন দাম</p>
+            <p className="text-xs text-gray-500 font-medium flex items-center gap-1">
+              <FiTrendingDown className="w-3.5 h-3.5 text-emerald-600" />
+              <span>সর্বনিম্ন দাম</span>
+            </p>
             <p className="text-2xl font-extrabold text-emerald-600 mt-1">
               {toBengali(minPrice)} <span className="text-sm font-semibold">টাকা</span>
             </p>
             <p className="text-xs text-gray-400 mt-1">সবচেয়ে কম দামের বাজার</p>
           </div>
 
-          {/* Card 2: Max price */}
           <div className="border border-gray-100 rounded-2xl p-5 bg-gray-50/50">
-            <p className="text-xs text-gray-500 font-medium">সর্বাধিক দাম</p>
+            <p className="text-xs text-gray-500 font-medium flex items-center gap-1">
+              <FiTrendingUp className="w-3.5 h-3.5 text-red-600" />
+              <span>সর্বাধিক দাম</span>
+            </p>
             <p className="text-2xl font-extrabold text-red-600 mt-1">
               {toBengali(maxPrice)} <span className="text-sm font-semibold">টাকা</span>
             </p>
             <p className="text-xs text-gray-400 mt-1">সবচেয়ে বেশি দামের বাজার</p>
           </div>
 
-          {/* Card 3: Avg price */}
           <div className="border border-gray-100 rounded-2xl p-5 bg-gray-50/50">
-            <p className="text-xs text-gray-500 font-medium">গড় দাম</p>
+            <p className="text-xs text-gray-500 font-medium flex items-center gap-1">
+              <FiBarChart2 className="w-3.5 h-3.5 text-gray-600" />
+              <span>গড় দাম</span>
+            </p>
             <p className="text-2xl font-extrabold text-gray-900 mt-1">
               {toBengali(avgPrice)} <span className="text-sm font-semibold">টাকা</span>
             </p>
@@ -160,7 +170,6 @@ export default async function ProductDetailsPage({ params }) {
         </div>
       </section>
 
-      {/* Markets Table: বাজারভিত্তিক আজকের দাম */}
       {markets.length > 0 && (
         <section className="bg-white rounded-3xl p-6 border border-gray-100 shadow-xs space-y-4">
           <h2 className="text-lg font-bold text-gray-900">বাজারভিত্তিক আজকের দাম</h2>
