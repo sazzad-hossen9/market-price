@@ -5,4 +5,4 @@ export const authClient = createAuthClient({
   baseURL: typeof window !== "undefined" ? window.location.origin : process.env.BETTER_AUTH_URL,
 });
 
-export const { signIn, signUp, useSession, signOut } = authClient;
+export const { signIn, signUp, useSession, signOut, updateUser } = authClient;
