@@ -141,8 +141,10 @@ export default function SignInPage() {
               onClick={() => handleSocialLogin("google", "গুগল")}
               className={socialBtn}
             >
-              <FcGoogle className="w-4 h-4 shrink-0" />
-              <span>Google দিয়ে চালিয়ে যান</span>
+              <div className=" cursor-pointer flex gap-3">
+                <FcGoogle className="w-4 h-4 shrink-0 " />
+                <span>Google দিয়ে চালিয়ে যান</span>
+              </div>
             </button>
 
             <button
@@ -151,8 +153,10 @@ export default function SignInPage() {
               onClick={() => handleSocialLogin("github", "গিটহাব")}
               className={socialBtn}
             >
-              <FaGithub className="w-4 h-4 shrink-0" />
-              <span>GitHub দিয়ে চালিয়ে যান</span>
+              <div className=" cursor-pointer flex gap-3">
+                <FaGithub className="w-4 h-4 shrink-0  cursor-pointer" />
+                <span>GitHub দিয়ে চালিয়ে যান</span>
+              </div>
             </button>
           </div>
 
@@ -160,7 +164,7 @@ export default function SignInPage() {
             অ্যাকাউন্ট নেই?{" "}
             <Link
               href="/signup"
-              className="text-[#00823e] font-semibold hover:underline"
+              className="text-[#00823e] font-semibold hover:underline  cursor-pointer"
             >
               সাইন আপ করুন
             </Link>
