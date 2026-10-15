@@ -5,6 +5,8 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Providers } from "./providers";
 import { Toaster } from "react-hot-toast";
+// import MarqueePage from "@/components/marquee";
+import TickerWrapper from "../components/TickerWrapper";
 
 const hindSiliguri = Hind_Siliguri({
   subsets: ["bengali", "latin"],
@@ -20,16 +22,34 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="bn" data-theme="light" className={`${hindSiliguri.className} h-full antialiased`}>
+    <html
+      lang="bn"
+      data-theme="light"
+      className={`${hindSiliguri.className} h-full antialiased`}
+    >
       <body className="min-h-screen flex flex-col bg-[#f5f7f6] text-gray-800">
         <Providers>
           <Toaster position="top-right" />
-          <Suspense fallback={<div className="h-20 bg-white border-b border-gray-200" />}>
+          <Suspense
+            fallback={
+              <div className="h-20 bg-white border-b border-gray-200" />
+            }
+          >
             <Navbar />
           </Suspense>
-          <main className="flex-1 w-full">
-            {children}
-          </main>
+          <Suspense
+            fallback={
+              <div className="h-11 bg-white border-y border-gray-200" />
+            }
+          >
+            <TickerWrapper />
+          </Suspense>
+          <Suspense
+            fallback={
+              <div className="h-11 bg-white border-y border-gray-200" />
+            }
+          ></Suspense>
+          <main className="flex-1 w-full">{children}</main>
           <Footer />
         </Providers>
       </body>

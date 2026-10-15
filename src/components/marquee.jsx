@@ -4,7 +4,7 @@ import Marquee from "react-fast-marquee";
 import Link from "next/link";
 import { toBengali } from "./ProductCard";
 
-export default function PriceTicker({ products = [] }) {
+export default function MarqueePage({ products = [] }) {
   if (!products || products.length === 0) return null;
 
   return (
@@ -23,7 +23,12 @@ export default function PriceTicker({ products = [] }) {
               <span className="text-base">{item.image || "🛒"}</span>
               <span className="font-medium text-gray-900">{item.nameBn}</span>
               <span className="text-gray-600">
-                {toBengali(item.today)} টাকা/{item.unit === "dozen" ? "ডজন" : item.unit === "piece" ? "পিস" : "কেজি"}
+                {toBengali(item.today)} টাকা/
+                {item.unit === "dozen"
+                  ? "ডজন"
+                  : item.unit === "piece"
+                    ? "পিস"
+                    : "কেজি"}
               </span>
 
               {isUp && (
@@ -37,7 +42,9 @@ export default function PriceTicker({ products = [] }) {
                 </span>
               )}
               {!isUp && !isDown && (
-                <span className="text-gray-400 font-semibold text-xs">— ০.০%</span>
+                <span className="text-gray-400 font-semibold text-xs">
+                  — ০.০%
+                </span>
               )}
             </Link>
           );
